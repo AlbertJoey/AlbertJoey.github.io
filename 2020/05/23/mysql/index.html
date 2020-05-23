@@ -79,15 +79,15 @@
 
 
 
-<meta name="description" content="mysql mvcc1234begin;select * from hbec_wallet_cg_fund_profit;SELECT TRX_ID FROM INFORMATION_SCHEMA.INNODB_TRX  WHERE TRX_MYSQL_THREAD_ID &#x3D; CONNECTION_ID();commit;">
+<meta name="description" content="mysql mvcc1234begin;select * from hbec_wallet_cg_fund_profit;SELECT TRX_ID FROM INFORMATION_SCHEMA.INNODB_TRX  WHERE TRX_MYSQL_THREAD_ID &#x3D; CONNECTION_ID();commit; 123456789　　InnoDB的MVCC，通过在每行记录后面">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mysql">
 <meta property="og:url" content="http://yoursite.com/2020/05/23/mysql/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="mysql mvcc1234begin;select * from hbec_wallet_cg_fund_profit;SELECT TRX_ID FROM INFORMATION_SCHEMA.INNODB_TRX  WHERE TRX_MYSQL_THREAD_ID &#x3D; CONNECTION_ID();commit;">
+<meta property="og:description" content="mysql mvcc1234begin;select * from hbec_wallet_cg_fund_profit;SELECT TRX_ID FROM INFORMATION_SCHEMA.INNODB_TRX  WHERE TRX_MYSQL_THREAD_ID &#x3D; CONNECTION_ID();commit; 123456789　　InnoDB的MVCC，通过在每行记录后面">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-05-23T07:27:25.000Z">
-<meta property="article:modified_time" content="2020-05-23T07:28:40.451Z">
+<meta property="article:modified_time" content="2020-05-23T07:50:42.447Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="mysql">
 <meta name="twitter:card" content="summary">
@@ -301,6 +301,7 @@
 
       
         <h3 id="mysql-mvcc"><a href="#mysql-mvcc" class="headerlink" title="mysql mvcc"></a>mysql mvcc</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">begin;</span><br><span class="line">select * from hbec_wallet_cg_fund_profit;</span><br><span class="line">SELECT TRX_ID FROM INFORMATION_SCHEMA.INNODB_TRX  WHERE TRX_MYSQL_THREAD_ID &#x3D; CONNECTION_ID();</span><br><span class="line">commit;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">　　InnoDB的MVCC，通过在每行记录后面保存两个隐藏的列来实现：一个保存了行的创建时间，一个保存行的过期时间（删除时间），当然，这里的时间并不是时间戳，而是系统版本号，每开始一个新的事务，系统版本号就会递增。在RR隔离级别下，MVCC的操作如下：</span><br><span class="line"></span><br><span class="line">select操作。</span><br><span class="line">InnoDB只查找版本早于（包含等于）当前事务版本的数据行。可以确保事务读取的行，要么是事务开始前就已存在，或者事务自身插入或修改的记录。</span><br><span class="line">行的删除版本要么未定义，要么大于当前事务版本号。可以确保事务读取的行，在事务开始之前未删除。</span><br><span class="line">insert操作。将新插入的行保存当前版本号为行版本号。</span><br><span class="line">delete操作。将删除的行保存当前版本号为删除标识。</span><br><span class="line">update操作。变为insert和delete操作的组合，insert的行保存当前版本号为行版本号，delete则保存当前版本号到原来的行作为删除标识。</span><br><span class="line">　　由于旧数据并不真正的删除，所以必须对这些数据进行清理，innodb会开启一个后台线程执行清理工作，具体的规则是将删除版本号小于当前系统版本的行删除，这个过程叫做purge。</span><br></pre></td></tr></table></figure>
 
 
       
