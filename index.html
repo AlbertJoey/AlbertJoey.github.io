@@ -229,6 +229,144 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/26/es1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/05/26/es1/" itemprop="url">es1</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-05-26T15:19:51+08:00">
+                2020-05-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="elasticsearch-document"><a href="#elasticsearch-document" class="headerlink" title="elasticsearch document"></a>elasticsearch document</h1><h2 id="second-chapter"><a href="#second-chapter" class="headerlink" title="second chapter"></a>second chapter</h2><h3 id="first-section"><a href="#first-section" class="headerlink" title="first section"></a>first section</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">download url https:&#x2F;&#x2F;www.elastic.co&#x2F;cn&#x2F;downloads&#x2F;elasticsearch</span><br></pre></td></tr></table></figure>
+
+<h4 id="运行elasticsearch"><a href="#运行elasticsearch" class="headerlink" title="运行elasticsearch"></a>运行elasticsearch</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">run : ~&#x2F;bin&#x2F;elasticsearch</span><br><span class="line">check: open bower at http:&#x2F;&#x2F;localhost:9200&#x2F;</span><br></pre></td></tr></table></figure>
+
+<h4 id="elasticsearch-install-plugins"><a href="#elasticsearch-install-plugins" class="headerlink" title="elasticsearch install plugins"></a>elasticsearch install plugins</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">plugin-list of mechain es : ~&#x2F;bin&#x2F;elasticsearch-plugin list</span><br><span class="line">install : ~&#x2F;bin&#x2F;elasticsearch-plugin install analysis-icu</span><br><span class="line">brower plugins : http:&#x2F;&#x2F;localhost:9200&#x2F;_cat&#x2F;plugins</span><br><span class="line">common used:discovery plugin&#x2F;analysis-icu plugin&#x2F;sercurity plugin&#x2F;management plugin&#x2F;ingest plugin&#x2F;mapper plugin&#x2F;backup plugin</span><br></pre></td></tr></table></figure>
+
+<h4 id="elasticsearch-运行多个实例"><a href="#elasticsearch-运行多个实例" class="headerlink" title="elasticsearch 运行多个实例"></a>elasticsearch 运行多个实例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">bin&#x2F;elasticsearch -E node.name&#x3D;node1 -E cluster.name&#x3D;geektime -E path.data&#x3D;node1_data -d</span><br><span class="line">bin&#x2F;elasticsearch -E node.name&#x3D;node2 -E cluster.name&#x3D;geektime -E path.data&#x3D;node2_data -d</span><br><span class="line">bin&#x2F;elasticsearch -E node.name&#x3D;node3 -E cluster.name&#x3D;geektime -E path.data&#x3D;node3_data -d</span><br><span class="line">bin&#x2F;elasticsearch -E node.name&#x3D;node4 -E cluster.name&#x3D;geektime -E path.data&#x3D;node4_data -d</span><br><span class="line"></span><br><span class="line">stop : ps -ef | grep elasticsearch</span><br></pre></td></tr></table></figure>
+
+<h3 id="second-section"><a href="#second-section" class="headerlink" title="second section"></a>second section</h3><h5 id="kibana-download-and-install"><a href="#kibana-download-and-install" class="headerlink" title="kibana download and install"></a>kibana download and install</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">download url : https:&#x2F;&#x2F;www.elastic.co&#x2F;cn&#x2F;downloads&#x2F;kibana</span><br></pre></td></tr></table></figure>
+
+<h5 id="运行kibana"><a href="#运行kibana" class="headerlink" title="运行kibana"></a>运行kibana</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">run : ~&#x2F;bin&#x2F;kibana</span><br><span class="line">add sample data</span><br></pre></td></tr></table></figure>
+
+<h4 id="dev-tools"><a href="#dev-tools" class="headerlink" title="dev tools"></a>dev tools</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GET _cat&#x2F;nodes</span><br><span class="line">GET _cat&#x2F;plugins</span><br></pre></td></tr></table></figure>
+
+<h4 id="kibana-plugins"><a href="#kibana-plugins" class="headerlink" title="kibana plugins"></a>kibana plugins</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">install: bin&#x2F;kibana-plugin install ..</span><br><span class="line">list : bin&#x2F;kibana-plugin list</span><br><span class="line">remove : bin&#x2F;kibana-plugin remove</span><br></pre></td></tr></table></figure>
+
+<h3 id="three-section"><a href="#three-section" class="headerlink" title="three section"></a>three section</h3><h4 id="run-es-and-kibana-in-docker"><a href="#run-es-and-kibana-in-docker" class="headerlink" title="run es and kibana in docker"></a>run es and kibana in docker</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">need download docker-compose.yml</span><br><span class="line">docker-compose up </span><br><span class="line">brower cerebro :http:&#x2F;&#x2F;localhost:9000</span><br></pre></td></tr></table></figure>
+
+<h3 id="four-section"><a href="#four-section" class="headerlink" title="four section"></a>four section</h3><h4 id="install-and-import-data-logstash"><a href="#install-and-import-data-logstash" class="headerlink" title="install and import data logstash"></a>install and import data logstash</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">down load url :  https:&#x2F;&#x2F;www.elastic.co&#x2F;cn&#x2F;downloads&#x2F;logstash </span><br><span class="line">import demo movies data url : </span><br><span class="line">run logstash : sudo bin&#x2F;logstash -f logstash.conf</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/23/mysql/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -640,7 +778,7 @@
               
                 <a href="/archives/%20%7C%7C%20archive">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -653,7 +791,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">tags</span>
                 
               </div>
