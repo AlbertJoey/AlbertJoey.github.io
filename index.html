@@ -229,6 +229,128 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/29/kafka3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/05/29/kafka3/" itemprop="url">kafka深入内核</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-05-29T14:38:02+08:00">
+                2020-05-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="kafka副本机制"><a href="#kafka副本机制" class="headerlink" title="kafka副本机制"></a>kafka副本机制</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">副本三个好处：提供数据冗余；提供高伸缩性；改善数据局部性；</span><br><span class="line">kafka的追随者副本不对外提供服务的两个好处：方便实现read-your-writes;方便实现单调读；</span><br><span class="line">判断Follwer是否与leader同步的标准不是看相差的消息数，而是看broker端参数repliac.lag.time.max.ms参数值。这个定义含义是follwer服务能落后leader副本的最长时间间隔，当前默认是0秒。</span><br></pre></td></tr></table></figure>
+<h3 id="kafka处理请求的核心流程盘点"><a href="#kafka处理请求的核心流程盘点" class="headerlink" title="kafka处理请求的核心流程盘点"></a>kafka处理请求的核心流程盘点</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">accptor线程：采用轮询的方式将入站请求公平的发送到所有网络线程中。</span><br><span class="line">网络线程池：网络线程拿到请求后，将请求放入一个共享请求队列中.</span><br><span class="line">IO线程池：从共享请求对列中取出请求，执行真正的处理，如果是produce生产请求，则将消息写入到底层的磁盘日志中，如果是fetch请求，则从磁盘或页缓存中读取消息</span><br><span class="line">purgatory组件：用来缓存延时请求，所谓的延时请求，就是那些一时没有满足条件不能立刻被处理的请求。</span><br></pre></td></tr></table></figure>
+<h3 id="消费者组rebalance重平衡流程解析"><a href="#消费者组rebalance重平衡流程解析" class="headerlink" title="消费者组rebalance重平衡流程解析"></a>消费者组rebalance重平衡流程解析</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">重平衡的三个触发条件：组成员数发生变化；订阅主题数量发生变化；订阅主题的分区发生变化。</span><br><span class="line">kafka未消费者组定义了五种状态，分别是empty;dead;PreparingRebalance;CompletingRebalance和Stable.</span><br><span class="line">在消费者端，重平衡分为两个步骤，分别是加入组和等待领导者消费者分配方案。这两个步骤分别对应两类特定的请求：joinGroup和SyncGroup请求。</span><br><span class="line">协调者端处理重平衡的4个场景：新成员加入组；组成员主动离开；组成员奔溃离开；重平衡协调者对组内成员提交位移的处理。</span><br></pre></td></tr></table></figure>
+<h3 id="你一定不能错过的Kafka控制器"><a href="#你一定不能错过的Kafka控制器" class="headerlink" title="你一定不能错过的Kafka控制器"></a>你一定不能错过的Kafka控制器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1.在集群运行环境中，控制器只能有一个。kafka提供了一个重要的jvm指标帮助你监控此事，无论何时，如果发现此值大于1，要赶快处理。</span><br><span class="line">2.kafka选举控制器的规则是第一个成功创建&#x2F;controller节点的broker会被指定为控制器。</span><br><span class="line">3.控制器的5种指责：主题管理：分区重分配；pre-ferred领导者选举；集群成员管理；数据服务；</span><br><span class="line">4.控制器保存的几种重要数据：所有主题信息；所有broker信息；所有涉及运维任务的分区；</span><br><span class="line">5.自0.11版本开始，社区把控制器之前的多线程方案改成了单线程加事件队列的方案。</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/28/kafka2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1031,7 +1153,7 @@
               
                 <a href="/archives/%20%7C%7C%20archive">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
