@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="kafka," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="主题管理123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657创建主题命令脚本bin&#x2F;kafka-topics.sh --bootstrap-server broker_host:port --create --topic my_to">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kafka 管理与监控">
+<meta property="og:url" content="http://yoursite.com/2020/06/02/kafka4/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="主题管理123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657创建主题命令脚本bin&#x2F;kafka-topics.sh --bootstrap-server broker_host:port --create --topic my_to">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-06-02T09:50:28.000Z">
+<meta property="article:modified_time" content="2020-06-02T10:50:05.712Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="kafka">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/06/02/kafka4/"/>
+
+
+
+
+
+  <title>kafka 管理与监控 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/02/kafka4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">kafka 管理与监控</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-06-02T17:50:28+08:00">
+                2020-06-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="主题管理"><a href="#主题管理" class="headerlink" title="主题管理"></a>主题管理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">创建主题命令脚本</span><br><span class="line">bin&#x2F;kafka-topics.sh --bootstrap-server broker_host:port --create --topic my_topic_name  --partitions 1 --replication-factor 1</span><br><span class="line"></span><br><span class="line">查看所有主题列表</span><br><span class="line">bin&#x2F;kafka-topics.sh --bootstrap-server broker_host:port --list</span><br><span class="line"></span><br><span class="line">查询单个主题详情</span><br><span class="line">bin&#x2F;kafka-topics.sh --bootstrap-server broker_host:port --describe --topic &lt;topic_name&gt;</span><br><span class="line"></span><br><span class="line">增加某个主题分区</span><br><span class="line">bin&#x2F;kafka-topics.sh --bootstrap-server broker_host:port --alter --topic &lt;topic_name&gt; --partitions &lt;新分区数&gt;</span><br><span class="line"></span><br><span class="line">修改主题级别</span><br><span class="line">bin&#x2F;kafka-configs.sh --zookeeper zookeeper_host:port --entity-type topics --entity-name &lt;topic_name&gt; --alter --add-config max.message.bytes&#x3D;10485760</span><br><span class="line"></span><br><span class="line">变更副本数？？？</span><br><span class="line"></span><br><span class="line">修改主题限速配置</span><br><span class="line">bin&#x2F;kafka-configs.sh --zookeeper zookeeper_host:port --alter --add-config &#39;leader.replication.throttled.rate&#x3D;104857600,follower.replication.throttled.rate&#x3D;104857600&#39; --entity-type brokers --entity-name 0</span><br><span class="line"></span><br><span class="line">通配所有主贴限速</span><br><span class="line">bin&#x2F;kafka-configs.sh --zookeeper zookeeper_host:port --alter --add-config &#39;leader.replication.throttled.replicas&#x3D;*,follower.replication.throttled.replicas&#x3D;*&#39; --entity-type topics --entity-name test</span><br><span class="line"></span><br><span class="line">主题分区迁移</span><br><span class="line"></span><br><span class="line">删除主题</span><br><span class="line">bin&#x2F;kafka-topics.sh --bootstrap-server broker_host:port --delete  --topic &lt;topic_name&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">主题的副本值已经是 1了，我们能否把它增加到 3的方法</span><br><span class="line">创建json文件如下</span><br><span class="line"></span><br><span class="line">&#123;&quot;version&quot;:1, &quot;partitions&quot;:[</span><br><span class="line"> &#123;&quot;topic&quot;:&quot;__consumer_offsets&quot;,&quot;partition&quot;:0,&quot;replicas&quot;:[0,1,2]&#125;, </span><br><span class="line">  &#123;&quot;topic&quot;:&quot;__consumer_offsets&quot;,&quot;partition&quot;:1,&quot;replicas&quot;:[0,2,1]&#125;,</span><br><span class="line">  &#123;&quot;topic&quot;:&quot;__consumer_offsets&quot;,&quot;partition&quot;:2,&quot;replicas&quot;:[1,0,2]&#125;,</span><br><span class="line">  &#123;&quot;topic&quot;:&quot;__consumer_offsets&quot;,&quot;partition&quot;:3,&quot;replicas&quot;:[1,2,0]&#125;,</span><br><span class="line">  ...</span><br><span class="line">  &#123;&quot;topic&quot;:&quot;__consumer_offsets&quot;,&quot;partition&quot;:49,&quot;replicas&quot;:[0,1,2]&#125;</span><br><span class="line">]&#125;&#96;</span><br><span class="line">执行 kafka-reassign-partitions 脚本，命令如下：</span><br><span class="line">bin&#x2F;kafka-reassign-partitions.sh --zookeeper zookeeper_host:port --reassignment-json-file reassign.json --execute</span><br><span class="line"></span><br><span class="line">查看消费者组提交的位移数据</span><br><span class="line">bin&#x2F;kafka-console-consumer.sh --bootstrap-server kafka_host:port --topic __consumer_offsets --formatter &quot;kafka.coordinator.group.GroupMetadataManager\$OffsetsMessageFormatter&quot; --from-beginning</span><br><span class="line"></span><br><span class="line">读取该主题消息，查看消费者组的状态信息</span><br><span class="line">bin&#x2F;kafka-console-consumer.sh --bootstrap-server kafka_host:port --topic __consumer_offsets --formatter &quot;kafka.coordinator.group.GroupMetadataManager\$GroupMetadataMessageFormatter&quot; --from-beginning</span><br><span class="line"></span><br><span class="line">常见错误管理：</span><br><span class="line">1.删除主题失败</span><br><span class="line">副本所在的 Broker 宕机了；</span><br><span class="line">待删除主题的部分分区依然在执行迁移过程。</span><br><span class="line">不管什么原因，一旦你碰到主题无法删除的问题，可以采用这样的方法：第 1 步，手动删除 ZooKeeper 节点 &#x2F;admin&#x2F;delete_topics 下以待删除主题为名的 znode。第 2 步，手动删除该主题在磁盘上的分区目录。第 3 步，在 ZooKeeper 中执行 rmr &#x2F;controller，触发 Controller 重选举，刷新 Controller 缓存。第三步可以不用操作。</span><br><span class="line"></span><br><span class="line">2. __consumer_offsets 占用太多的磁盘</span><br><span class="line">一旦你发现这个主题消耗了过多的磁盘空间，那么，你一定要显式地用 jstack 命令查看一下 kafka-log-cleaner-thread 前缀的线程状态。通常情况下，这都是因为该线程挂掉了，无法及时清理此内部主题。倘若真是这个原因导致的，那我们就只能重启相应的 Broker 了。另外，请你注意保留出错日志，因为这通常都是 Bug 导致的，最好提交到社区看一下。</span><br></pre></td></tr></table></figure>
+<h3 id="Kafka动态配置"><a href="#Kafka动态配置" class="headerlink" title="Kafka动态配置"></a>Kafka动态配置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">什么是动态 Broker 参数配置？</span><br><span class="line">Broker Configs表中增加了 Dynamic Update Mode 列。该列有 3 类值，分别是 read-only、per-broker 和 cluster-wide</span><br><span class="line">(1)read-only。被标记为 read-only 的参数和原来的参数行为一样，只有重启 Broker，才能令修改生效。per-broker。</span><br><span class="line">(2)被标记为 per-broker 的参数属于动态参数，修改它之后，只会在对应的 Broker 上生效。cluster-wide。</span><br><span class="line">(3)被标记为 cluster-wide 的参数也属于动态参数，修改它之后，会在整个集群范围内生效，也就是说，对所有 Broker 都生效。你也可以为具体的 Broker 修改 cluster-wide 参数。</span><br><span class="line"></span><br><span class="line">可能需要动态调整配置的情况：</span><br><span class="line">(1)动态调整 Broker 端各种线程池大小，实时应对突发流量。</span><br><span class="line">(2)动态调整 Broker 端连接信息或安全配置信息。</span><br><span class="line">(3)动态更新 SSL Keystore 有效期。</span><br><span class="line">(4)动态调整 Broker 端 Compact 操作性能。</span><br><span class="line">(5)实时变更 JMX 指标收集器 (JMX Metrics Reporter)。</span><br><span class="line">Kafka 将动态 Broker 参数保存在 ZooKeeper 中</span><br><span class="line"></span><br><span class="line">如何配置？</span><br><span class="line">(1)集群层面设置全局值</span><br><span class="line">$ bin&#x2F;kafka-configs.sh --bootstrap-server kafka-host:port --entity-type brokers --entity-default --alter --add-config unclean.leader.election.enable&#x3D;true</span><br><span class="line">Completed updating default config for brokers in the cluster,</span><br><span class="line">查看一下刚才的配置是否成功</span><br><span class="line">$ bin&#x2F;kafka-configs.sh --bootstrap-server kafka-host:port --entity-type brokers --entity-default --describe</span><br><span class="line">Default config for brokers in the cluster are:</span><br><span class="line">  unclean.leader.election.enable&#x3D;true sensitive&#x3D;false synonyms&#x3D;&#123;DYNAMIC_DEFAULT_BROKER_CONFIG:unclean.leader.election.enable&#x3D;true&#125;</span><br><span class="line"></span><br><span class="line">(2)设置 per-broker 范围参数</span><br><span class="line">$ bin&#x2F;kafka-configs.sh --bootstrap-server kafka-host:port --entity-type brokers --entity-name 1 --alter --add-config unclean.leader.election.enable&#x3D;false</span><br><span class="line">Completed updating config for broker: 1.</span><br><span class="line">查看一下刚刚的设置是否生效</span><br><span class="line">$ bin&#x2F;kafka-configs.sh --bootstrap-server kafka-host:port --entity-type brokers --entity-name 1 --describe</span><br><span class="line">Configs for broker 1 are:</span><br><span class="line">  unclean.leader.election.enable&#x3D;false sensitive&#x3D;false synonyms&#x3D;&#123;DYNAMIC_BROKER_CONFIG:unclean.leader.election.enable&#x3D;false, DYNAMIC_DEFAULT_BROKER_CONFIG:unclean.leader.election.enable&#x3D;true, DEFAULT_CONFIG:unclean.leader.election.enable&#x3D;false&#125;</span><br><span class="line">在 Broker 1 层面上，该参数被设置成了 false，这表明命令运行成功了。从倒数第二行可以看出，在全局层面上，该参数值依然是 true。这表明，我们之前设置的 cluster-wide 范围参数值依然有效。</span><br><span class="line"></span><br><span class="line">(3)要删除 cluster-wide 范围参数或 per-broker 范围参数</span><br><span class="line"># 删除cluster-wide范围参数</span><br><span class="line">$ bin&#x2F;kafka-configs.sh --bootstrap-server kafka-host:port --entity-type brokers --entity-default --alter --delete-config unclean.leader.election.enable</span><br><span class="line">Completed updating default config for brokers in the cluster,</span><br><span class="line"># 删除per-broker范围参数</span><br><span class="line">$ bin&#x2F;kafka-configs.sh --bootstrap-server kafka-host:port --entity-type brokers --entity-name 1 --alter --delete-config unclean.leader.election.enable</span><br><span class="line">Completed updating config for broker: 1.</span><br><span class="line"></span><br><span class="line">(4)可能会大概率调整的参数有哪些？</span><br><span class="line">1.log.retention.ms。 修改日志留存时间</span><br><span class="line">2.num.io.threads 和 num.network.threads。 两组线程池</span><br><span class="line">3. 与 SSL 相关的参数。 阶段性地调整这组参数，有利于增加安全性</span><br><span class="line">4.num.replica.fetchers。确保有充足的线程可以执行 Follower 副本向 Leader 副本的拉取,解决拉取慢问题。</span><br></pre></td></tr></table></figure>
+<h3 id="怎么重设消费者组位移"><a href="#怎么重设消费者组位移" class="headerlink" title="怎么重设消费者组位移"></a>怎么重设消费者组位移</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">重设消费者组位移七种方式</span><br><span class="line">Earliest 策略直接指定–to-earliest。</span><br><span class="line">bin&#x2F;kafka-consumer-groups.sh --bootstrap-server kafka-host:port --group test-group --reset-offsets --all-topics --to-earliest –execute</span><br><span class="line"></span><br><span class="line">Latest 策略直接指定–to-latest。</span><br><span class="line">bin&#x2F;kafka-consumer-groups.sh --bootstrap-server kafka-host:port --group test-group --reset-offsets --all-topics --to-latest --execute</span><br><span class="line"></span><br><span class="line">Current 策略直接指定–to-current。</span><br><span class="line">bin&#x2F;kafka-consumer-groups.sh --bootstrap-server kafka-host:port --group test-group --reset-offsets --all-topics --to-current --execute</span><br><span class="line"></span><br><span class="line">Specified-Offset 策略直接指定–to-offset。</span><br><span class="line">bin&#x2F;kafka-consumer-groups.sh --bootstrap-server kafka-host:port --group test-group --reset-offsets --all-topics --to-offset &lt;offset&gt; --execute</span><br><span class="line"></span><br><span class="line">Shift-By-N 策略直接指定–shift-by N。</span><br><span class="line">bin&#x2F;kafka-consumer-groups.sh --bootstrap-server kafka-host:port --group test-group --reset-offsets --shift-by &lt;offset_N&gt; --execute</span><br><span class="line"></span><br><span class="line">DateTime 策略直接指定–to-datetime。</span><br><span class="line">bin&#x2F;kafka-consumer-groups.sh --bootstrap-server kafka-host:port --group test-group --reset-offsets --to-datetime 2019-06-20T20:00:00.000 --execute</span><br><span class="line"></span><br><span class="line">Earliest:把位移调整到当前最早位移处。</span><br><span class="line">Lastest:把位移调整到当前最新位移处。</span><br><span class="line">Current:把位移调整到当前最新提交位移处。</span><br><span class="line">Specified-Offset:把位移调整到指定位移。</span><br><span class="line">Shift-By-N：把位移调整到当前位移+N处。</span><br><span class="line">DateTime:把位移调整到大于给定时间的最小位移处。</span><br><span class="line">Duration:把位移调整到距离当前时间指定间隔的位移处。</span><br><span class="line"></span><br><span class="line">两种方式重设位移</span><br><span class="line">java api</span><br><span class="line">命令行如上</span><br></pre></td></tr></table></figure>
+<h3 id="常见工具脚本大汇总"><a href="#常见工具脚本大汇总" class="headerlink" title="常见工具脚本大汇总"></a>常见工具脚本大汇总</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">重点脚本操作</span><br><span class="line">生产消息</span><br><span class="line">$ bin&#x2F;kafka-console-producer.sh --broker-list kafka-host:port --topic test-topic --request-required-acks -1 --producer-property compression.type&#x3D;lz4</span><br><span class="line">&gt;</span><br><span class="line"></span><br><span class="line">消费消息</span><br><span class="line">$ bin&#x2F;kafka-console-consumer.sh --bootstrap-server kafka-host:port --topic test-topic --group test-group --from-beginning --consumer-property enable.auto.commit&#x3D;false </span><br><span class="line"></span><br><span class="line">测试生产者性能</span><br><span class="line"></span><br><span class="line">$ bin&#x2F;kafka-producer-perf-test.sh --topic test-topic --num-records 10000000 --throughput -1 --record-size 1024 --producer-props bootstrap.servers&#x3D;kafka-host:port acks&#x3D;-1 linger.ms&#x3D;2000 compression.type&#x3D;lz4</span><br><span class="line">2175479 records sent, 435095.8 records&#x2F;sec (424.90 MB&#x2F;sec), 131.1 ms avg latency, 681.0 ms max latency.</span><br><span class="line">4190124 records sent, 838024.8 records&#x2F;sec (818.38 MB&#x2F;sec), 4.4 ms avg latency, 73.0 ms max latency.</span><br><span class="line">10000000 records sent, 737463.126844 records&#x2F;sec (720.18 MB&#x2F;sec), 31.81 ms avg latency, 681.00 ms max latency, 4 ms 50th, 126 ms 95th, 604 ms 99th, 672 ms 99.9th.</span><br><span class="line"></span><br><span class="line">测试消费者性能</span><br><span class="line">$ bin&#x2F;kafka-consumer-perf-test.sh --broker-list kafka-host:port --messages 10000000 --topic test-topic</span><br><span class="line">start.time, end.time, data.consumed.in.MB, MB.sec, data.consumed.in.nMsg, nMsg.sec, rebalance.time.ms, fetch.time.ms, fetch.MB.sec, fetch.nMsg.sec</span><br><span class="line">2019-06-26 15:24:18:138, 2019-06-26 15:24:23:805, 9765.6202, 1723.2434, 10000000, 1764602.0822, 16, 5651, 1728.1225, 1769598.3012</span><br><span class="line"></span><br><span class="line">查看主题消息总数</span><br><span class="line">$ bin&#x2F;kafka-run-class.sh kafka.tools.GetOffsetShell --broker-list kafka-host:port --time -2 --topic test-topic</span><br><span class="line">test-topic:0:0</span><br><span class="line">test-topic:1:0</span><br><span class="line">$ bin&#x2F;kafka-run-class.sh kafka.tools.GetOffsetShell --broker-list kafka-host:port --time -1 --topic test-topic</span><br><span class="line">test-topic:0:5500000</span><br><span class="line">test-topic:1:5500000</span><br><span class="line"></span><br><span class="line">查看消息文件数据</span><br><span class="line">$ bin&#x2F;kafka-dump-log.sh --files ..&#x2F;data_dir&#x2F;kafka_1&#x2F;test-topic-1&#x2F;00000000000000000000.log </span><br><span class="line">Dumping ..&#x2F;data_dir&#x2F;kafka_1&#x2F;test-topic-1&#x2F;00000000000000000000.log</span><br><span class="line">Starting offset: 0</span><br><span class="line">baseOffset: 0 lastOffset: 14 count: 15 baseSequence: -1 lastSequence: -1 producerId: -1 producerEpoch: -1 partitionLeaderEpoch: 0 isTransactional: false isControl: false position: 0 CreateTime: 1561597044933 size: 1237 magic: 2 compresscodec: LZ4 crc: 646766737 isvalid: true</span><br><span class="line">baseOffset: 15 lastOffset: 29 count: 15 baseSequence: -1 lastSequence: -1 producerId: -1 producerEpoch: -1 partitionLeaderEpoch: 0 isTransactional: false isControl: false position: 1237 CreateTime: 1561597044934 size: 1237 magic: 2 compresscodec: LZ4 crc: 3751986433 isvalid: true</span><br><span class="line">......</span><br><span class="line"></span><br><span class="line">如果我们想深入看一下每条具体的消息，那么就需要显式指定 --deep-iteration 参数，如下所示：</span><br><span class="line">$ bin&#x2F;kafka-dump-log.sh --files ..&#x2F;data_dir&#x2F;kafka_1&#x2F;test-topic-1&#x2F;00000000000000000000.log --deep-iteration</span><br><span class="line">Dumping ..&#x2F;data_dir&#x2F;kafka_1&#x2F;test-topic-1&#x2F;00000000000000000000.log</span><br><span class="line">Starting offset: 0</span><br><span class="line">baseOffset: 0 lastOffset: 14 count: 15 baseSequence: -1 lastSequence: -1 producerId: -1 producerEpoch: -1 partitionLeaderEpoch: 0 isTransactional: false isControl: false position: 0 CreateTime: 1561597044933 size: 1237 magic: 2 compresscodec: LZ4 crc: 646766737 isvalid: true</span><br><span class="line">| offset: 0 CreateTime: 1561597044911 keysize: -1 valuesize: 1024 sequence: -1 headerKeys: []</span><br><span class="line">| offset: 1 CreateTime: 1561597044932 keysize: -1 valuesize: 1024 sequence: -1 headerKeys: []</span><br><span class="line">| offset: 2 CreateTime: 1561597044932 keysize: -1 valuesize: 1024 sequence: -1 headerKeys: []</span><br><span class="line">| offset: 3 CreateTime: 1561597044932 keysize: -1 valuesize: 1024 sequence: -1 headerKeys: []</span><br><span class="line">| offset: 4 CreateTime: 1561597044932 keysize: -1 valuesize: 1024 sequence: -1 headerKeys: []</span><br><span class="line">| offset: 5 CreateTime: 1561597044932 keysize: -1 valuesize: 1024 sequence: -1 headerKeys: []</span><br><span class="line">| offset: 6 CreateTime: 1561597044932 keysize: -1 valuesize: 1024 sequence: -1 headerKeys: []</span><br><span class="line">| offset: 7 CreateTime: 1561597044932 keysize: -1 valuesize: 1024 sequence: -1 headerKeys: []</span><br><span class="line">| offset: 8 CreateTime: 1561597044932 keysize: -1 valuesize: 1024 sequence: -1 headerKeys: []</span><br><span class="line">| offset: 9 CreateTime: 1561597044932 keysize: -1 valuesize: 1024 sequence: -1 headerKeys: []</span><br><span class="line">| offset: 10 CreateTime: 1561597044932 keysize: -1 valuesize: 1024 sequence: -1 headerKeys: []</span><br><span class="line">| offset: 11 CreateTime: 1561597044932 keysize: -1 valuesize: 1024 sequence: -1 headerKeys: []</span><br><span class="line">| offset: 12 CreateTime: 1561597044932 keysize: -1 valuesize: 1024 sequence: -1 headerKeys: []</span><br><span class="line">| offset: 13 CreateTime: 1561597044933 keysize: -1 valuesize: 1024 sequence: -1 headerKeys: []</span><br><span class="line">| offset: 14 CreateTime: 1561597044933 keysize: -1 valuesize: 1024 sequence: -1 headerKeys: []</span><br><span class="line">baseOffset: 15 lastOffset: 29 count: 15 baseSequence: -1 lastSequence: -1 producerId: -1 producerEpoch: -1 partitionLeaderEpoch: 0 isTransactional: false isControl: false position: 1237 CreateTime: 1561597044934 size: 1237 magic: 2 compresscodec: LZ4 crc: 3751986433 isvalid: true</span><br><span class="line">......</span><br><span class="line"></span><br><span class="line">以竖线开头的就是消息批次下的消息信息。如果你还想看消息里面的实际数据，那么还需要指定  --print-data-log 参数，如下所示：</span><br><span class="line">$ bin&#x2F;kafka-dump-log.sh --files ..&#x2F;data_dir&#x2F;kafka_1&#x2F;test-topic-1&#x2F;00000000000000000000.log --deep-iteration --print-data-log</span><br><span class="line"></span><br><span class="line">常用工具脚本</span><br><span class="line">生产消息：使用kafka-console-producer脚本</span><br><span class="line">消费消息：使用kafka-console-consumer脚本</span><br><span class="line">测试消费者性能：使用kafka-consumer-perf-test脚本</span><br><span class="line">测试生产者性能：使用kafka-producer-perf-test脚本</span><br><span class="line">查看主题消息总数：使用kafka提供的工具类getOffsetShell来计算给定主题特定分区当前最早的位移和最新位移，将两者差值加起来。</span><br><span class="line">查看消息文件数据：使用kafka-dump-log脚本，如果想深入查看每条具体消息，那么就需要显式指定--deep-iteration参数</span><br><span class="line">查询消费者组位移：使用kafka-consumer-groups脚本。</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/kafka/" rel="tag"># kafka</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/05/29/kafka3/" rel="next" title="kafka深入内核">
+                <i class="fa fa-chevron-left"></i> kafka深入内核
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#主题管理"><span class="nav-number">1.</span> <span class="nav-text">主题管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kafka动态配置"><span class="nav-number">2.</span> <span class="nav-text">Kafka动态配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#怎么重设消费者组位移"><span class="nav-number">3.</span> <span class="nav-text">怎么重设消费者组位移</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见工具脚本大汇总"><span class="nav-number">4.</span> <span class="nav-text">常见工具脚本大汇总</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
