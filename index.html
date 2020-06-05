@@ -229,6 +229,134 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/04/algorithm/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/06/04/algorithm/" itemprop="url">algorithm</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-06-04T14:55:25+08:00">
+                2020-06-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="冒泡"><a href="#冒泡" class="headerlink" title="冒泡"></a>冒泡</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">func bubble(arr []int) []int &#123;</span><br><span class="line">	l :&#x3D; len(arr)</span><br><span class="line">	if l &lt;&#x3D; 1 &#123;</span><br><span class="line">		return arr</span><br><span class="line">	&#125;</span><br><span class="line">	for i :&#x3D; 0; i &lt; l; i++ &#123;</span><br><span class="line">		for j :&#x3D; i + 1; j &lt; l; j++ &#123;</span><br><span class="line">			if arr[i] &gt; arr[j] &#123;</span><br><span class="line">				arr[i], arr[j] &#x3D; arr[j], arr[i]</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	return arr</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="斐波那契额递归"><a href="#斐波那契额递归" class="headerlink" title="斐波那契额递归"></a>斐波那契额递归</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">func fibonacci(n int) int &#123;</span><br><span class="line">	if n &lt;&#x3D; 2 &#123;</span><br><span class="line">		return 1</span><br><span class="line">	&#125;</span><br><span class="line">	return fibonacci(n-1) + fibonacci(n-2)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="斐波那契缓存版"><a href="#斐波那契缓存版" class="headerlink" title="斐波那契缓存版"></a>斐波那契缓存版</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var m map[int]int</span><br><span class="line">func fibocache(n int) int &#123;</span><br><span class="line">	if n &lt;&#x3D; 2 &#123;</span><br><span class="line">		return 1</span><br><span class="line">	&#125;</span><br><span class="line">	if v, ok :&#x3D; m[n]; ok &#123;</span><br><span class="line">		return v</span><br><span class="line">	&#125;</span><br><span class="line">	v :&#x3D; fibocache(n-1) + fibocache(n-2)</span><br><span class="line">	m[n] &#x3D; v</span><br><span class="line">	return v</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="斐波那契数组版"><a href="#斐波那契数组版" class="headerlink" title="斐波那契数组版"></a>斐波那契数组版</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">func fiboarry(n int) int &#123;</span><br><span class="line">	if n &lt;&#x3D; 2 &#123;</span><br><span class="line">		return 1</span><br><span class="line">	&#125;</span><br><span class="line">	arr :&#x3D; make([]int, n)</span><br><span class="line">	arr[0], arr[1] &#x3D; 1, 1</span><br><span class="line">	for i :&#x3D; 2; i &lt; n; i++ &#123;</span><br><span class="line">		arr[i] &#x3D; arr[i-1] + arr[i-2]</span><br><span class="line">	&#125;</span><br><span class="line">	return arr[n-1]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="斐波那契函数式版"><a href="#斐波那契函数式版" class="headerlink" title="斐波那契函数式版"></a>斐波那契函数式版</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">type IntGen func() int</span><br><span class="line"></span><br><span class="line">func fibofunc() IntGen &#123;</span><br><span class="line">	a, b :&#x3D; 1, 1</span><br><span class="line">	return func() int &#123;</span><br><span class="line">		a, b &#x3D; b+a, a</span><br><span class="line">		return a</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">f:&#x3D;fibofunc()</span><br><span class="line">f()</span><br></pre></td></tr></table></figure>
+<h3 id="impl-io-reader-套用strings-NewReader"><a href="#impl-io-reader-套用strings-NewReader" class="headerlink" title="impl io.reader(套用strings.NewReader)"></a>impl io.reader(套用strings.NewReader)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">func (g IntGen) Read(p []byte) (n int, err error) &#123;</span><br><span class="line">	next :&#x3D; g()</span><br><span class="line">	if next &gt; 1000 &#123;</span><br><span class="line">		return 0, io.EOF</span><br><span class="line">	&#125;</span><br><span class="line">	s :&#x3D; fmt.Sprintf(&quot;%d\n&quot;, next)</span><br><span class="line">	return strings.NewReader(s).Read(p)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func printFib(reader io.Reader) &#123;</span><br><span class="line">	i :&#x3D; 0</span><br><span class="line">	scanner :&#x3D; bufio.NewScanner(reader)</span><br><span class="line">	for scanner.Scan() &#123;</span><br><span class="line">		i++</span><br><span class="line">		fmt.Println(&quot;row num&quot;, i, scanner.Text())</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">f:&#x3D;fibofunc()</span><br><span class="line">printFib(f)</span><br></pre></td></tr></table></figure>
+<h3 id="quicksort-slice"><a href="#quicksort-slice" class="headerlink" title="quicksort slice"></a>quicksort slice</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">func quicksort(arr []int) []int &#123;</span><br><span class="line">	l :&#x3D; len(arr)</span><br><span class="line">	if l &lt;&#x3D; 1 &#123;</span><br><span class="line">		return arr</span><br><span class="line">	&#125;</span><br><span class="line">	mrk :&#x3D; arr[rand.Intn(l)]</span><br><span class="line">	min :&#x3D; make([]int, 0)</span><br><span class="line">	mid :&#x3D; make([]int, 0)</span><br><span class="line">	max :&#x3D; make([]int, 0)</span><br><span class="line">	for _, v :&#x3D; range arr &#123;</span><br><span class="line">		switch &#123;</span><br><span class="line">		case v &lt; mrk:</span><br><span class="line">			&#123;</span><br><span class="line">				min &#x3D; append(min, v)</span><br><span class="line">			&#125;</span><br><span class="line">		case v &#x3D;&#x3D; mrk:</span><br><span class="line">			&#123;</span><br><span class="line">				mid &#x3D; append(mid, v)</span><br><span class="line">			&#125;</span><br><span class="line">		case v &gt; mrk:</span><br><span class="line">			&#123;</span><br><span class="line">				max &#x3D; append(max, v)</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	var res []int</span><br><span class="line"></span><br><span class="line">	res &#x3D; append(res, quicksort(min)...)</span><br><span class="line">	res &#x3D; append(res, mid...)</span><br><span class="line">	res &#x3D; append(res, max...)</span><br><span class="line">	return res</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="quicksort-other"><a href="#quicksort-other" class="headerlink" title="quicksort other"></a>quicksort other</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">func quicksort1(arr []int) []int &#123;</span><br><span class="line">	l :&#x3D; len(arr)</span><br><span class="line">	if l &lt; 2 &#123;</span><br><span class="line">		return arr</span><br><span class="line">	&#125;</span><br><span class="line">	mrk :&#x3D; arr[0]</span><br><span class="line">	head, tail :&#x3D; 0, l-1</span><br><span class="line">	for i :&#x3D; 1; i &lt;&#x3D; tail; &#123;</span><br><span class="line">		if arr[i] &gt; mrk &#123;</span><br><span class="line">			arr[i], arr[tail] &#x3D; arr[tail], arr[i]</span><br><span class="line">			tail--</span><br><span class="line">		&#125; else &#123;</span><br><span class="line">			arr[i], arr[head] &#x3D; arr[head], arr[i]</span><br><span class="line">			head++</span><br><span class="line">			i++</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	quicksort1(arr[:head])</span><br><span class="line">	quicksort1(arr[head+1:])</span><br><span class="line">	return arr</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="heapsort-堆排序"><a href="#heapsort-堆排序" class="headerlink" title="heapsort 堆排序"></a>heapsort 堆排序</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Heap 定义堆排序过程中使用的堆结构</span><br><span class="line">type Heap struct &#123;</span><br><span class="line">	arr  []int &#x2F;&#x2F; 用来存储堆的数据</span><br><span class="line">	size int   &#x2F;&#x2F; 用来标识堆的大小</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; adjustHeap 用于调整堆，保持堆的固有性质</span><br><span class="line">func adjustHeap(h Heap, pnidx int) &#123;</span><br><span class="line">	lnidx :&#x3D; pnidx*2 + 1</span><br><span class="line">	rnidx :&#x3D; pnidx*2 + 2</span><br><span class="line">	maxnidx :&#x3D; pnidx</span><br><span class="line"></span><br><span class="line">	fmt.Printf(&quot;l:%d,r:%d,max:%d,parent:%d,h:%v\n&quot;, lnidx, rnidx, maxnidx, pnidx, h)</span><br><span class="line">	if lnidx &lt; h.size &amp;&amp; h.arr[maxnidx] &lt; h.arr[lnidx] &#123;</span><br><span class="line">		maxnidx &#x3D; lnidx</span><br><span class="line">	&#125;</span><br><span class="line">	if rnidx &lt; h.size &amp;&amp; h.arr[maxnidx] &lt; h.arr[rnidx] &#123;</span><br><span class="line">		maxnidx &#x3D; rnidx</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	if maxnidx !&#x3D; pnidx &#123;</span><br><span class="line">		h.arr[maxnidx], h.arr[pnidx] &#x3D; h.arr[pnidx], h.arr[maxnidx]</span><br><span class="line">		adjustHeap(h, maxnidx)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; createHeap 用于构造一个堆</span><br><span class="line">func createHeap(arr []int) (h Heap) &#123;</span><br><span class="line">	h.arr &#x3D; arr</span><br><span class="line">	h.size &#x3D; len(arr)</span><br><span class="line">	for i :&#x3D; h.size &#x2F; 2; i &gt;&#x3D; 0; i-- &#123;</span><br><span class="line">		adjustHeap(h, i)</span><br><span class="line">	&#125;</span><br><span class="line">	return</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; heapSort 使用堆对数组进行排序</span><br><span class="line">func heapSort(arr []int) &#123;</span><br><span class="line">	h :&#x3D; createHeap(arr)</span><br><span class="line"></span><br><span class="line">	for h.size &gt; 0 &#123;</span><br><span class="line">		&#x2F;&#x2F; 将最大的数值调整到堆的末尾</span><br><span class="line">		h.arr[0], h.arr[h.size-1] &#x3D; h.arr[h.size-1], h.arr[0]</span><br><span class="line">		&#x2F;&#x2F; 减少堆的长度</span><br><span class="line">		h.size--</span><br><span class="line">		&#x2F;&#x2F; 由于堆顶元素改变了，而且堆的大小改变了，需要重新调整堆，维持堆的性质</span><br><span class="line">		adjustHeap(h, 0)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">arr :&#x3D; []int&#123;7, 5, 8, 3, 6, 4, 9, 1&#125;</span><br><span class="line">heapsort(arr)</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/03/redis/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1396,7 +1524,7 @@
               
                 <a href="/archives/%20%7C%7C%20archive">
               
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1409,7 +1537,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">tags</span>
                 
               </div>
